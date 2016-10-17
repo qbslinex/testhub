@@ -1,0 +1,66 @@
+
+for(int i=0; i<9;i++)
+    infile>>mass_chislo[i][0]>>mass_chislo[i][1]>>mass_chislo[i][2]>>mass_chislo[i][3]>>mass_chislo[i][4]>>mass_chislo[i][5]>>mass_chislo[i][6]>>mass_chislo[i][7]>>mass_chislo[i][8];
+infile.close();
+
+
+short int max2, min2, max1, min1, rez, t;
+for(t=0; t<9; t++)
+    {
+    for(y=0; y<t+1; y++)
+        {
+        if(y == 0)
+            {
+            max1=mass_chislo[t][y];
+            min1=mass_chislo[t][y];
+            mass_konkat[t][0]=t*10+y;
+            mass_konkat[t][1]=t*10+y;
+            max2=mass_chislo[y-t+8][8-y];
+            min2=mass_chislo[y-t+8][8-y];
+            mass_konkat[16-t][0]=(y-t+8)*10+(8-y);
+            mass_konkat[16-t][1]=(y-t+8)*10+(8-y);
+            }
+        else
+           {
+           if(max1 < mass_chislo[t-y][y])
+               {
+               max1=mass_chislo[t-y][y];
+               mass_konkat[t][0]=(t-y)*10+y;
+               }
+           if(min1 > mass_chislo[t-y][y])
+               {
+               min1=mass_chislo[t-y][y];
+               mass_konkat[t][1]=(t-y)*10+y;
+               }
+           if(t != 8)
+               {
+               if(max2 < mass_chislo[y-t+8][8-y])
+                   {
+                   max2=mass_chislo[y-t+8][8-y];
+                   mass_konkat[16-t][0]=(y-t+8)*10+(8-y);
+                   }
+               if(min2 > mass_chislo[y-t+8][8-y])
+                   {
+                   min2=mass_chislo[y-t+8][8-y];
+                   mass_konkat[16-t][1]=(y-t+8)*10+(8-y);
+                   }
+               }
+           }
+        }
+    }
+
+ofstream outfile("ids272out.inp");
+if(!outfile)
+   {
+   }
+for(j=0; j<2; j++)
+    for(i=0; i<17; i++)
+        {
+        if (i == 16)
+           outfile<<mass_konkat[i][j]<<'\n';
+        else
+           outfile<<mass_konkat[i][j]<<' ';
+        }
+outfile.close();
+}
+
